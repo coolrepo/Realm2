@@ -1,11 +1,17 @@
 package kjanderson2.realm2;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.IOException;
+
 import io.realm.Realm;
 
 
@@ -40,6 +46,8 @@ public class MainActivity extends ActionBarActivity{
         email2Active = email2Checkbox.isChecked();
         phone1Active = phone1Checkbox.isChecked();
         phone2Active = phone2Checkbox.isChecked();
+
+        exportDatabase();
     }
 
     public void newProduct(View view){
@@ -131,5 +139,45 @@ public class MainActivity extends ActionBarActivity{
         phone2Box.setText(String.valueOf(person.getPhone2().getNumber()));
         phone2Checkbox.setChecked(person.getPhone2().getActive());
     }
+
+
+    //This method makes the .realm file for the Browser much easier to attain.
+    //It sends it to your email address which will place the file in an accessible folder
+    //on the device.
+    //Code credit to bokebe from StackOverflow
+    public void exportDatabase() {
+
+        // init realm
+        Realm realm = Realm.getInstance(this);
+
+        File exportRealmFile = null;
+        try {
+            // get or create an "export.realm" file
+            exportRealmFile = new File(this.getExternalCacheDir(), "export.realm");
+
+            // if "export.realm" already exists, delete
+            exportRealmFile.delete();
+
+            // copy current realm to "export.realm"
+            realm.writeCopyTo(exportRealmFile);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        realm.close();
+
+        // init email intent and add export.realm as attachment
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("plain/text");
+        intent.putExtra(Intent.EXTRA_EMAIL, "kjanderson@hmc.edu");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Realm File");
+        intent.putExtra(Intent.EXTRA_TEXT, "Here's the realm file.");
+        Uri u = Uri.fromFile(exportRealmFile);
+        intent.putExtra(Intent.EXTRA_STREAM, u);
+
+        // start email intent
+        startActivity(Intent.createChooser(intent, "YOUR CHOOSER TITLE"));
+    }
+
 
 }
