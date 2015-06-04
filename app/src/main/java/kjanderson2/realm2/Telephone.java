@@ -4,9 +4,10 @@ import io.realm.RealmObject;
 
 /**
  * Created by kjanderson2 on 6/2/15.
+ * This is the Model class for a Telephone object.
  */
 public class Telephone extends RealmObject{
-    private int number;
+    private String number;
     private boolean active;
     private String type;
 
@@ -14,29 +15,18 @@ public class Telephone extends RealmObject{
 
     }
 
-    public Telephone(int number){
-        this.number = number;
-        this.active = false;
-        this.type = "home";
-    }
 
-    public Telephone(int number, boolean active){
+    public Telephone(String number, boolean active){
         this.number = number;
         this.active = active;
         this.type = "home";
     }
 
-    public Telephone(int number, boolean active, String type){
-        this.number = number;
-        this.active = active;
-        this.type = type;
-    }
-
-    public void setNumber(int number){
+    public void setNumber(String number){
         this.number = number;
     }
 
-    public int getNumber(){
+    public String getNumber(){
         return this.number;
     }
 

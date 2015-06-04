@@ -4,6 +4,7 @@ import io.realm.RealmObject;
 
 /**
  * Created by kjanderson2 on 6/2/15.
+ * This is the model class for an Email object
  */
 public class Email extends RealmObject {
     private String address;

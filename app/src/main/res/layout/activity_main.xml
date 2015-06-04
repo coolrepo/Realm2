@@ -4,7 +4,7 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             xmlns:android="http://schemas.android.com/apk/res/android">
 
         <TableLayout
@@ -132,6 +132,7 @@
                 <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:inputType="phone"
                         android:ems="10"
                         android:id="@+id/phone1"/>
 
@@ -156,6 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:inputType="phone"
                     android:id="@+id/phone2"/>
 
             <CheckBox
